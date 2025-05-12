@@ -3,14 +3,17 @@
 <package format="3">
   <name>robot_diploma</name>
   <version>0.0.0</version>
-  <description>TODO: Package description</description>
-  <maintainer email="mark@todo.todo">mark</maintainer>
-  <license>TODO: License declaration</license>
+  <description>My package to test the robot out</description>
+  <maintainer email="mafiya555@yandex.ru">mark</maintainer>
+  <license>license nocense</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
 
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>
+
+  <exec_depend>demo_nodes_cpp</exec_depend>
+  <exec_depend>demo_nodes_py</exec_depend>
 
   <export>
     <build_type>ament_cmake</build_type>

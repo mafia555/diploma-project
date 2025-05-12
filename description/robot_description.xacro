@@ -1,0 +1,143 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <!-- Root -->
+
+    <link name="base_link">
+    </link>
+    
+    <!-- Base footprint -->
+
+    <joint name="base_footprint_joint" type="fixed">
+        <parent link="base_link" />
+        <child link="base_footprint_link" />
+        <origin xyz="0 0 0" rpy="0 0 0" />
+    </joint>
+
+    <link name="base_footprint_link">
+    </link>
+
+
+    
+
+    <!-- Base -->
+
+    <joint name="platform_joint" type="fixed">
+        <parent link="base_link" />
+        <child link="platform_link" />
+        <origin xyz="0 0 0" />
+    </joint>
+
+    <link name="platform_link">
+        <visual>
+            <origin xyz="0 0 0.01" rpy="0 0 0" />
+            <geometry>
+                <box size="0.2 0.18 0.02" />
+            </geometry>
+            <material name="green" />
+        </visual>
+        <collision>
+            <origin xyz="0 0 0.01" rpy="0 0 0" />
+            <geometry>
+                <box size="0.2 0.18 0.02" />
+            </geometry>
+        </collision>
+        <xacro:inertial_box mass="0.5" x="0.2" y="0.18" z="0.02">
+            <origin xyz="0 0 0.01" rpy="0 0 0" />
+        </xacro:inertial_box>
+    </link>
+
+<!-- Left wheel-->
+
+    <xacro:property name="wheel_length" value="0.01" />
+    <xacro:property name="wheel_radius" value="0.03" />
+    <xacro:property name="wheel_damping" value="0.0002" />
+    <xacro:property name="wheel_friction" value="0.005" />
+
+    <joint name="wheelL_joint" type="continuous">
+        <origin xyz="0 0.095 0" rpy="-${pi/2} 0 0" />
+        <parent link="base_link" />
+        <child link="wheelL_link" />
+        <axis xyz="0 0 1"/>
+        <dynamics damping="${wheel_damping}" friction="${wheel_friction}" />
+    </joint>
+    
+    <link name="wheelL_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <cylinder length="${wheel_length}" radius="${wheel_radius}" />
+            </geometry>
+            <material name="blue" />
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <cylinder length="${wheel_length}" radius="${wheel_radius}" />
+            </geometry>
+        </collision>
+        <xacro:inertial_cylinder mass="0.1" length="${wheel_length}" radius="${wheel_radius}">
+            <origin xyz="0 0 0" rpy="0 0 0" />
+        </xacro:inertial_cylinder>
+    </link>
+
+<!-- Right wheel -->
+
+    <joint name="wheelR_joint" type="continuous">
+        <origin xyz="0 -0.095 0" rpy="${pi/2} 0 0" />
+        <parent link="base_link" />
+        <child link="wheelR_link" />
+        <axis xyz="0 0 -1" />
+       <dynamics damping="${wheel_damping}" friction="${wheel_friction}" />
+    </joint>
+
+    <link name="wheelR_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <cylinder length="${wheel_length}" radius="${wheel_radius}" />
+            </geometry>
+            <material name="blue" />
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <cylinder length="${wheel_length}" radius="${wheel_radius}" />
+            </geometry>
+        </collision>
+        <xacro:inertial_cylinder mass="0.1" length="${wheel_length}" radius="${wheel_radius}">
+            <origin xyz="0 0 0" rpy="0 0 0" />
+        </xacro:inertial_cylinder>
+    </link>
+
+<!-- Back wheel -->
+
+    <xacro:property name="back_wheel_radius" value="0.015" />
+    
+    <joint name="back_wheel_joint" type="continuous">
+        <origin xyz="-0.07 0 -0.015" rpy="0 0 0"/>
+        <parent link="base_link"/>
+        <child link="back_wheel_link"/>
+        <axis xyz="0 1 1"/>
+        <dynamics damping="${wheel_damping/2}" friction="${wheel_friction/2}" />
+    </joint>
+
+    <link name="back_wheel_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <sphere radius="${back_wheel_radius}" />
+            </geometry>
+            <material name="blue" />
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <sphere radius="${back_wheel_radius}" />
+            </geometry>
+        </collision>
+        <xacro:inertial_sphere mass="0.05" radius="${back_wheel_radius}">
+            <origin xyz="0 0 0" rpy="0 0 0" />
+        </xacro:inertial_sphere>
+    </link>
+</robot>
